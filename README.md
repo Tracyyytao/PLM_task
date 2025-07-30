@@ -128,3 +128,59 @@ Each Class Metrics are: {0: {'precision': 1.0, 'recall': 1.0, 'f1': 1.0}, 1:
 res: 
 [4, 4, 5]
 ```
+
+# 5. 强化学习&语言模型（RLHF）
+## 5.1  基于中文情感识别模型的正向评论生成机器人（No Human Reward）
+1.正常启动训练后，终端会打印如下数据:
+```
+Random Sample 5 text(s) of model output:
+1. 这部电影很浅 不 精 实 。 一 本 书 买 到 后 很 失 望 [SEP] [SEP]
+2. 这部电影很幻 化 成 旷 世 奇 谭 杀 青 ， 两 年 后 全 剧 终
+3. 这次购物总的来说体验很正 。 感 触 很 深 也 很 有 功 底 。 书 还 是 很
+4. 说实话，真的很般 地 一 般 。 而 且 越 来 越 贵 ， 以 前 百 叶
+5. 刚收到货，感觉音 效 不 错 ， 就 是 电 池 续 航 不 咋 滴 。 [SEP]
+  1%|▎                                        | 1/157 [00:45<1:58:46, 45.68s/it]epoch 1 mean-reward: 0.660504937171936
+Random Sample 5 text(s) of model output:
+1. 说实话，真的很般 般 ， 咱 就 是 吃 顿 饭 来 接 受 不 了 。 这
+2. 这次购物总的来说体验很可 口 [SEP] ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+3. 说实话，真的很般 ， 还 加 了 20 五 ， 猪 脚 炖 土 豆 不 脆 ，
+4. 刚收到货，感觉~ ~ ~ ~ ~ 因 为 不 常 用 什 么 电 脑 ， 所
+5. 这次购物总的来说体验很是 翻 开 的 书 有 点 厚 也 少 了 点 这 种 书 的
+  1%|▌                                        | 2/157 [01:31<1:58:49, 45.99s/it]epoch 2 mean-reward: 0.6786868572235107
+```
+在 `logs/PPO-Sentiment-Zh.png` 下会保存模型训练过程中的各个指标变化（包括 reward 变化曲线）：
+
+![PPO](https://github.com/Tracyyytao/PLM_task/blob/main/PLHF/assets/PPO-Sentiment-Zh.png?raw=true)
+
+## 5.2  基于人工打分的评论生成机器人（With Human Reward）
+启动标注平台`terminal_main.py`，可以在终端看到模型的生成结果，通过人工输入 reward 以迭代模型：
+
+![terminal](https://github.com/Tracyyytao/PLM_task/blob/main/PLHF/assets/terminal.png?raw=true)
+
+## 5.3  基于人工排序训练 Reward Model
+成功开始训练后，终端会打印以下信息：
+```
+...
+global step 100, epoch: 1, loss: 0.32152, speed: 1.49 step/s
+global step 110, epoch: 1, loss: 0.31962, speed: 1.46 step/s
+global step 120, epoch: 1, loss: 0.31617, speed: 1.46 step/s
+global step 130, epoch: 1, loss: 0.31261, speed: 1.40 step/s
+global step 140, epoch: 1, loss: 0.30733, speed: 1.40 step/s
+global step 150, epoch: 1, loss: 0.30515, speed: 1.43 step/s
+global step 160, epoch: 1, loss: 0.30182, speed: 1.44 step/s
+global step 170, epoch: 1, loss: 0.30007, speed: 1.43 step/s
+global step 180, epoch: 1, loss: 0.29843, speed: 1.43 step/s
+global step 190, epoch: 1, loss: 0.29636, speed: 1.45 step/s
+global step 200, epoch: 1, loss: 0.29429, speed: 1.47 step/s
+Evaluation acc: 0.54348
+best F1 performence has been updated: 0.00000 --> 0.54348
+...
+```
+在 `logs/Model Performance.png` 会存放训练曲线图：
+
+![Model Performance](https://github.com/Tracyyytao/PLM_task/blob/main/PLHF/assets/Model%20Performance.png?raw=true)
+
+运行预测脚本，可以看到训练后的模型的打分效果：
+```
+tensor([[ 3.2337],
+        [-6.1985]], grad_fn=<AddmmBackward0>)
