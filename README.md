@@ -1,5 +1,110 @@
 # PLM_task
 
+# 1. 文本匹配（text_matching）
+## 1.1 监督
+### 1.1.1 PointWise（单塔）
+1.正确开启训练后，终端会打印以下信息：
+```
+global step 10, epoch: 1, loss: 0.67510, speed: 4.25 step/s
+global step 20, epoch: 1, loss: 0.65519, speed: 4.82 step/s
+global step 30, epoch: 1, loss: 0.64859, speed: 4.81 step/s
+global step 40, epoch: 1, loss: 0.61896, speed: 4.83 step/s
+global step 50, epoch: 1, loss: 0.58966, speed: 4.76 step/s
+global step 60, epoch: 1, loss: 0.55598, speed: 4.73 step/s
+global step 70, epoch: 1, loss: 0.53062, speed: 4.74 step/s
+global step 80, epoch: 1, loss: 0.50343, speed: 4.71 step/s
+global step 90, epoch: 2, loss: 0.47102, speed: 4.93 step/s
+global step 100, epoch: 2, loss: 0.44601, speed: 4.80 step/s
+...
+```
+在 `logs/comment_classify` 文件下将会保存训练曲线图：
+
+![11](https://github.com/Tracyyytao/PLM_task/blob/main/text_matching/supervised/assets/Model%20Performance%20(1).png?raw=true)
+
+2.完成模型训练后，运行 `inference_pointwise.py` 以加载训练好的模型并应用，得到以下推理结果：
+```
+tensor([[ 1.9092, -2.6020]], device='cuda:0')
+```
+### 1.1.2  DSSM（双塔）
+1.正确开启训练后，终端会打印以下信息：
+```
+global step 10, epoch: 1, loss: 0.74789, speed: 4.67 step/s
+global step 20, epoch: 1, loss: 0.67472, speed: 4.53 step/s
+global step 30, epoch: 1, loss: 0.56567, speed: 4.81 step/s
+global step 40, epoch: 1, loss: 0.50395, speed: 4.90 step/s
+...
+```
+在 `logs/comment_classify` 文件下将会保存训练曲线图：
+
+![22](https://github.com/Tracyyytao/PLM_task/blob/main/text_matching/supervised/assets/Model%20Performance%20(2).png?raw=true)
+
+2.运行 `inference_dssm.py`，得到下面结果：
+```
+Used 0.3007240295410156s.
+[
+    ('衣服', 0.7229569554328918),
+    ('酒店', 0.7043281197547913),
+    ('蒙牛', 0.6797731518745422),
+    ('洗浴', 0.6788960695266724),
+    ('电器', 0.6734145879745483),
+    ('水果', 0.6660837531089783),
+    ('电脑', 0.6475979089736938),
+    ('手机', 0.635999321937561),
+    ('平板', 0.5878052711486816),
+    ('书籍', 0.5437681674957275)
+]
+```
+### 1.1.3  Sentence Transformer（双塔）
+1.正确开启训练后，终端会打印以下信息：
+```
+Step 10, Epoch 1, Loss: 0.7026, Speed: 2.44 steps/s
+Step 20, Epoch 1, Loss: 0.6451, Speed: 2.62 steps/s
+Step 30, Epoch 1, Loss: 0.6210, Speed: 2.60 steps/s
+Step 40, Epoch 1, Loss: 0.5955, Speed: 2.58 steps/s
+Step 50, Epoch 1, Loss: 0.5885, Speed: 2.61 steps/s
+Step 60, Epoch 1, Loss: 0.5940, Speed: 2.61 steps/s
+Step 70, Epoch 1, Loss: 0.5893, Speed: 2.59 steps/s
+Step 80, Epoch 1, Loss: 0.5712, Speed: 2.61 steps/s
+Step 90, Epoch 2, Loss: 0.4719, Speed: 2.72 steps/s
+...
+```
+在 `logs/comment_classify` 文件下将会保存训练曲线图：
+
+![33](https://github.com/Tracyyytao/PLM_task/blob/main/text_matching/supervised/assets/Model%20Performance%20(3).png?raw=true)
+
+2.运行 `inference_sentence_transformer.py`，函数会输出所有类别里「匹配通过」的类别及其匹配值，得到下面结果：
+```
+Used 0.22788548469543457s.
+[
+    ('平板', 1.1538971234932689), 
+    ('电脑', 0.8854678934975480)
+]
+```
+## 1.2 无监督
+1.正确开启训练后，终端会打印以下信息：
+```
+...
+global step 140, epoch: 1, loss: 0.12339, speed: 2.52 step/s
+global step 150, epoch: 1, loss: 0.11530, speed: 2.52 step/s
+global step 160, epoch: 1, loss: 0.10818, speed: 2.52 step/s
+global step 170, epoch: 1, loss: 0.10186, speed: 2.53 step/s
+global step 180, epoch: 1, loss: 0.09625, speed: 2.52 step/s
+global step 190, epoch: 1, loss: 0.09134, speed: 2.54 step/s
+global step 200, epoch: 1, loss: 0.08684, speed: 2.52 step/s
+Evaluation precision: 0.54226, recall: 0.98819, F1: 0.70026, spearman_corr: 
+0.47653
+best F1 performance updated: 0.00000 --> 0.70026
+global step 210, epoch: 1, loss: 0.11488, speed: 2.36 step/s
+global step 220, epoch: 1, loss: 0.11552, speed: 2.35 step/s
+...
+```
+在 `logs/LCQMC` 文件下将会保存训练曲线图：
+
+![44](https://github.com/HarderThenHarder/transformers_tasks/blob/main/text_matching/unsupervised/simcse/assets/ERNIE-ESimCSE.png?raw=true)
+
+2.完成模型训练后，运行 `inference.py` 以加载训练好的模型并应用，得到以下推理结果：
+`[0.2931939363479614, 0.9064270257949829]`
+
 # 2. 信息抽取（UIE）
 1.模型训练
 正确开启训练后，终端会打印以下信息：
