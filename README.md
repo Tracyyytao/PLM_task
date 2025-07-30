@@ -47,7 +47,7 @@ Each Class Metrics are: {0: {'precision': 1.0, 'recall': 1.0, 'f1': 1.0}, 1:
 0.56, 'recall': 0.83, 'f1': 0.67}}
 ...
 ```
-在 `logs/UIE Base.png` 文件中将会保存训练曲线图：
+在 `logs/comment_classify` 文件中将会保存训练曲线图：
 
 ![BERT](https://github.com/Tracyyytao/PLM_task/blob/main/text_classification/assets/BERT.png?raw=true)
 
