@@ -289,3 +289,62 @@ best F1 performence has been updated: 0.00000 --> 0.54348
 ```
 tensor([[ 3.2337],
         [-6.1985]], grad_fn=<AddmmBackward0>)
+
+# 6. 文本生成（answer_generation)
+## 6.1 中文问答模型（T5-Small）
+1.正确开启训练后，终端会打印以下信息：
+```
+Map: 100%|███████████████████████| 14520/14520 [00:09<00:00, 1526.76 examples/s]
+Map: 100%|███████████████████████████| 984/984 [00:00<00:00, 1525.13 examples/s]
+global step 10, epoch: 1, loss: 9.39759, speed: 4.67 step/s
+global step 20, epoch: 1, loss: 9.39064, speed: 5.52 step/s
+global step 30, epoch: 1, loss: 9.38868, speed: 5.43 step/s
+global step 40, epoch: 1, loss: 9.38350, speed: 5.48 step/s
+global step 50, epoch: 1, loss: 9.37548, speed: 5.47 step/s
+global step 60, epoch: 1, loss: 9.36682, speed: 5.51 step/s
+global step 70, epoch: 1, loss: 9.35632, speed: 5.53 step/s
+global step 80, epoch: 1, loss: 9.34300, speed: 5.52 step/s
+global step 90, epoch: 1, loss: 9.32656, speed: 5.53 step/s
+global step 100, epoch: 1, loss: 9.30552, speed: 5.45 step/s
+global step 110, epoch: 1, loss: 9.27951, speed: 5.48 step/s
+...
+```
+在 `logs/DuReaderQG` 文件下将会保存训练曲线图：
+
+![11](https://github.com/Tracyyytao/PLM_task/blob/main/answer_generation/assets/Model%20Performance.png?raw=true)
+
+2.完成模型训练后，运行 `inference.py` 以加载训练好的模型并应用：
+```
+Q: "治疗宫颈糜烂的最佳时间"
+C: 
+"专家指出，宫颈糜烂治疗时间应选在月经干净后3-7日，因为治疗之后宫颈有一定的创面，
+如赶上月经期易发生感染。因此患者应在月经干净后3天尽快来医院治疗。同时应该注意，
+术前3天禁同房，有生殖道急性炎症者应治好后才可进行。"
+A: "答案：3-7日"
+```
+## 6.2 Filling 模型（T5-Small）
+1.正确开启训练后，终端会打印以下信息：
+```
+Map: 100%|█████████████████████| 350134/350134 [01:57<00:00, 2969.48 examples/s]
+Map: 100%|███████████████████████| 38904/38904 [00:13<00:00, 2967.30 examples/s]
+global step 10, epoch: 1, loss: 9.51035, speed: 4.68 step/s
+global step 20, epoch: 1, loss: 9.51205, speed: 5.60 step/s
+global step 30, epoch: 1, loss: 9.51319, speed: 5.49 step/s
+global step 40, epoch: 1, loss: 9.51603, speed: 5.48 step/s
+global step 50, epoch: 1, loss: 9.51272, speed: 5.50 step/s
+global step 60, epoch: 1, loss: 9.51306, speed: 5.50 step/s
+global step 70, epoch: 1, loss: 9.51283, speed: 5.50 step/s
+global step 80, epoch: 1, loss: 9.51172, speed: 5.54 step/s
+global step 90, epoch: 1, loss: 9.51086, speed: 5.46 step/s
+...
+```
+训练曲线图如下：
+
+![22](https://github.com/Tracyyytao/PLM_task/blob/main/data_augment/filling_model/assets/T5-Base-Chinese.png?raw=true)
+
+2.成模型训练后，运行 `inference.py` 以加载训练好的模型并应用，得到以下推理结果：
+```
+maksed text: 
+['"《μVision2单片机应用程序开发指南》是2005年2月[MASK]图书，作者是李宇"中[MASK]
+位置的文本是：']
+output: ['extra0的的人，的一部的的的']
