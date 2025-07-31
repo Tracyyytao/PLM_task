@@ -394,3 +394,8 @@ output: ['extra0的的人，的一部的的的']
 '职业':['男演员']，'获得奖项':['原文中未提及']}
 ...
 ```
+
+# 9. 工具类（tools）
+在终端运行```streamlit run D:/PythonProject/PLM任务/tools/tokenizer_viewer/web_ui.py --server.port 8001```
+
+![11](https://github.com/Tracyyytao/PLM_task/blob/main/tools/tokenizer_viewer/assets/tonken.png?raw=true)
