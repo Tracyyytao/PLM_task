@@ -395,6 +395,12 @@ output: ['extra0的的人，的一部的的的']
 ...
 ```
 
+4.LLMs MBTI
+设置参数
+`streamlit run web.py --server.port 8001`
+
+![11](https://github.com/Tracyyytao/PLM_task/blob/main/LLM/llms_mbti/assets/mbti.png?raw=true)
+
 # 9. 工具类（tools）
 在终端运行```streamlit run D:/PythonProject/PLM任务/tools/tokenizer_viewer/web_ui.py --server.port 8001```
 
